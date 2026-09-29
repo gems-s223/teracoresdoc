@@ -1,0 +1,48 @@
+site_name: Teracores Desktop
+site_description: A complete walkthrough of Teracores Desktop, from first launch to running a simulation and reading back results.
+repo_url: https://github.com/gems-s223/teracoresdoc
+repo_name: gems-s223/teracoresdoc
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.top
+    - search.suggest
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Projects & Models: projects-and-models.md
+  - Editing the Model:
+      - Overview: editing/overview.md
+      - Document Editor: document-editor.md
+      - 3D Viewer: 3d-viewer.md
+      - 2D Layer View & Cross Sections: layer-and-sections.md
+      - Surface Networks: surface-networks.md
+      - Sources: editing/sources.md
+      - Wells: editing/wells.md
+  - Running a Simulation: running-a-simulation.md
+  - Viewing Results: viewing-results.md
+  - Settings: settings.md
+  - Licensing: licensing.md
+  - Troubleshooting: troubleshooting.md
+  - Glossary: glossary.md

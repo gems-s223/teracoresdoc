@@ -1,3 +1,6 @@
 site/
 __pycache__/
 *.pyc
+
+# archived (non-deployed): old MkDocs docs, CI, build output, source art
+archived/

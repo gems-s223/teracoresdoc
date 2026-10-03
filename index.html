@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teracores — Integrated Geothermal Reservoir &amp; Wellbore Simulation</title>
+  <meta name="description" content="Teracores is an integrated geothermal numerical simulation platform for reservoir–wellbore modeling, simulation, calibration, and visualization. Connect geological models to dynamic simulation in one visual workflow." />
+  <meta property="og:title" content="Teracores — Integrated Geothermal Reservoir &amp; Wellbore Simulation" />
+  <meta property="og:description" content="Connect geological models to dynamic geothermal simulation in one integrated visual workflow." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/img/teracores_splash.png" />
+  <link rel="icon" type="image/png" href="assets/img/teracores_logogram.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a class="nav__brand" href="#top" aria-label="Teracores — Geothermal Simulation, home">
+        <img class="nav__logoimg" src="assets/img/teracores_logo.png" alt="Teracores — Geothermal Simulation" />
+      </a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="#features" data-i18n="nav.features">Features</a>
+        <a href="#workflow" data-i18n="nav.workflow">Workflow</a>
+        <a href="#screens" data-i18n="nav.gallery">Gallery</a>
+        <a href="#lifecycle" data-i18n="nav.lifecycle">Lifecycle</a>
+      </nav>
+      <div class="langsw" role="group" aria-label="Language / Bahasa">
+        <button class="langsw__btn is-active" type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button class="langsw__btn" type="button" data-lang="id" aria-pressed="false">ID</button>
+      </div>
+      <a class="btn btn--primary nav__cta" href="mailto:mesias.canilandi@pertamina.com?subject=Teracores%20enquiry" data-i18n="nav.cta">Get in touch</a>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <!-- intro bump: plays on load, then collapses to reveal the hero -->
+    <div class="bump" id="bump" aria-hidden="true">
+      <div class="bump__inner">
+        <video class="bump__video" id="bumpVideo" muted playsinline autoplay preload="auto"
+          poster="assets/img/bump_poster.jpg">
+          <source src="assets/video/teracores_bump_web.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <button class="bump__skip" id="bumpSkip" type="button" data-i18n="bump.skip">Skip ▸</button>
+    </div>
+    <div class="container hero__inner">
+      <div class="hero__copy reveal">
+        <p class="eyebrow" data-i18n="hero.eyebrow">Integrated geothermal simulation platform</p>
+        <h1 data-i18n="hero.h1">From geological model to numerical simulation</h1>
+        <p class="lede" data-i18n="hero.lede">
+          Teracores connects geological modeling with dynamic geothermal simulation.
+          Import your static model, build the simulation model, run it on Waiwera or
+          TOUGH2, calibrate the results in 3D, and export the results back to your
+          geological workflow — all within one integrated environment.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary btn--lg" href="mailto:mesias.canilandi@pertamina.com?subject=Teracores%20enquiry" data-i18n="hero.cta1">Get in touch</a>
+          <a class="btn btn--ghost btn--lg" href="#workflow" data-i18n="hero.cta2">See the workflow</a>
+        </div>
+        <ul class="hero__points">
+          <li data-i18n="hero.point1">Works with Petrel, Leapfrog &amp; more</li>
+          <li data-i18n="hero.point2">Run on Waiwera or TOUGH2</li>
+          <li data-i18n="hero.point3">3D · 2D · Section views</li>
+        </ul>
+      </div>
+
+      <div class="hero__visual reveal">
+        <div class="viewer">
+          <div class="viewer__bar">
+            <span class="viewer__dot"></span><span class="viewer__dot"></span><span class="viewer__dot"></span>
+            <span class="viewer__title">3D Viewer — Fluid Temperature</span>
+            <span class="viewer__chip" id="viewerChip">Natural state → production</span>
+          </div>
+          <div class="viewer__stage">
+            <video id="heroVideo" class="viewer__video" muted loop playsinline preload="auto"
+              poster="assets/img/hero_poster.jpg"
+              aria-label="Teracores 3D Viewer — a geothermal reservoir colored by fluid temperature, evolving through the simulation. Use the slider below to scrub through time, or the button to play and pause.">
+              <source src="assets/video/temp_evolution_web.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="viewer__controls">
+            <button class="viewer__play" id="playBtn" type="button" aria-label="Play or pause the simulation" aria-pressed="true">⏸</button>
+            <input class="viewer__slider" id="timeSlider" type="range" min="0" max="100" value="0" step="0.1" aria-label="Scrub through simulation time" />
+            <span class="viewer__time" id="timeReadout">0:00 / 0:26</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero__glow" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============ PROBLEM / PROMISE ============ -->
+  <section class="promise">
+    <div class="container">
+      <div class="promise__grid">
+        <div class="reveal">
+          <p class="eyebrow eyebrow--muted" data-i18n="promise.eyebrow">The modeling gap</p>
+          <h2 data-i18n="promise.h2">Geothermal modeling often spans disconnected tools and workflows.</h2>
+          <p data-i18n="promise.body">
+            Geological models and numerical simulators often use different data structures and
+            workflows. Moving between them can require manual conversion, repetitive input
+            preparation, and disconnected interpretation — slowing the path from model to
+            engineering decision.
+          </p>
+        </div>
+        <div class="promise__card reveal">
+          <p class="eyebrow" data-i18n="promise.card.eyebrow">The Teracores way</p>
+          <h3 data-i18n="promise.card.h3">One integrated workflow, from model to decision</h3>
+          <ul class="checklist">
+            <li data-i18n="promise.card.li1">Import the geological model from your existing workflow</li>
+            <li data-i18n="promise.card.li2">Build the reservoir grid and simulation inputs visually</li>
+            <li data-i18n="promise.card.li3">Run on Waiwera or TOUGH2 and calibrate the model in 3D</li>
+            <li data-i18n="promise.card.li4">Export grids and results back to Petrel or Leapfrog</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow" data-i18n="features.eyebrow">What you get</p>
+        <h2 data-i18n="features.h2">Everything between the geological model and the engineering result</h2>
+        <p class="section-sub" data-i18n="features.sub">
+          Teracores provides one visual workspace for the geothermal simulation workflow —
+          connecting geological models, reservoir simulation, wellbore modeling,
+          calibration, and results interpretation.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal">
+          <div class="card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Zm0 2.3 6.5 3.6L12 11.5 5.5 7.9 12 4.3ZM5 9.6l6 3.4v6.7l-6-3.3V9.6Zm8 10.1v-6.7l6-3.4v6.7l-6 3.4Z"/></svg>
+          </div>
+          <h3 data-i18n="feat1.h3">Visualize it three ways</h3>
+          <p data-i18n="feat1.p">
+            Build and inspect the same model in synchronized <strong>3D, 2D layer, and
+            cross-section</strong> views. Draw a section line and watch it follow the real
+            terrain — not a flattened grid.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-9 9h2a7 7 0 1 1 2.05 4.95l-1.42 1.41A9 9 0 1 0 12 3Zm-1 4v5l4 2 .75-1.23L12.5 11.2V7H11Z"/></svg>
+          </div>
+          <h3 data-i18n="feat2.h3">Integrate your geological model</h3>
+          <p data-i18n="feat2.p">
+            Start from the geology you already have and turn it into a simulation-ready
+            reservoir grid. Teracores is <strong>agnostic</strong> — it works alongside
+            multiple static-modeling packages, not just one.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5Z"/></svg>
+          </div>
+          <h3 data-i18n="feat3.h3">Prepare and run simulations</h3>
+          <p data-i18n="feat3.p">
+            Prepare inputs and launch a full run on <strong>Waiwera or TOUGH2</strong> from
+            the GUI, with a live monitor for convergence. No hand-edited JSON, no TOUGH2
+            mesh files, no command line.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M11 2v6.6a4 4 0 1 0 2 0V2h-2Zm1 12a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM5 6h4v2H5V6Zm0 4h4v2H5v-2Zm0 4h3v2H5v-2Z"/></svg>
+          </div>
+          <h3 data-i18n="feat4.h3">Reservoir + wellbore, coupled</h3>
+          <p data-i18n="feat4.p">
+            The name says it: <strong>iterative reservoir-coupled wellbore simulation</strong>.
+            An integrated wellbore model iterates with the reservoir so wellhead conditions
+            and reservoir response stay physically consistent.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 3h18v14H3V3Zm2 2v10h14V5H5Zm1 12h12v2H6v-2Zm7-14h2v2h-2V3Z"/></svg>
+          </div>
+          <h3 data-i18n="feat5.h3">Calibrate in an integrated 3D environment</h3>
+          <p data-i18n="feat5.p">
+            Scrub one time slider and watch temperature, pressure and saturation evolve
+            across all three views at once. Overlay real downhole survey points to
+            history-match against the field.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8V2Zm1 4v6l4.5 2.7 1-1.7-3.5-2.1V6h-2Z"/></svg>
+          </div>
+          <h3 data-i18n="feat6.h3">Bring simulation results back to geology</h3>
+          <p data-i18n="feat6.p">
+            Close the loop: export grids and results straight to <strong>Petrel, Leapfrog</strong>
+            and Eclipse-family tools (GRDECL), or to TOUGH2 listing for PyTOUGH — so the
+            model goes back where your team works.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCREENSHOT SHOWCASE ============ -->
+  <section class="showcase" id="screens">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow" data-i18n="showcase.eyebrow">A look inside</p>
+        <h2 data-i18n="showcase.h2">Built for visual understanding</h2>
+        <p class="section-sub" data-i18n="showcase.sub">
+          Explore the model and simulation results visually. Inspect, compare, and
+          communicate complex reservoir behavior without relying on tables of numbers alone.
+        </p>
+      </div>
+      <div class="showcase__frame reveal">
+        <div class="showcase__bar">
+          <span class="viewer__dot"></span><span class="viewer__dot"></span><span class="viewer__dot"></span>
+          <span class="showcase__name">Teracores — 3D Viewer · simres_ubl</span>
+        </div>
+        <img class="showcase__img" src="assets/img/teracores_app_dark.png"
+          alt="The Teracores 3D Viewer in dark theme showing a faulted geothermal reservoir model colored by rock type, with the Project Explorer, model tree, styling panel and a simulation time slider."
+          loading="lazy" />
+      </div>
+      <div class="showcase__points">
+        <div class="sp reveal">
+          <span class="sp__k" data-i18n="sp1.k">3D / 2D / Section</span>
+          <h3 data-i18n="sp1.h3">Three synced views</h3>
+          <p data-i18n="sp1.p">Orbit the full mesh, drop to a single layer, or slice a section — all from the same model.</p>
+        </div>
+        <div class="sp reveal">
+          <span class="sp__k" data-i18n="sp2.k">Color by anything</span>
+          <h3 data-i18n="sp2.h3">Rock types to results</h3>
+          <p data-i18n="sp2.p">Shade cells by rock type, boundaries, initial conditions, or any simulation field.</p>
+        </div>
+        <div class="sp reveal">
+          <span class="sp__k" data-i18n="sp3.k">Scrub time</span>
+          <h3 data-i18n="sp3.h3">Watch it evolve</h3>
+          <p data-i18n="sp3.p">One time slider drives every view — from natural state to the final forecast step.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORKFLOW (the round trip) ============ -->
+  <section class="how" id="workflow">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow" data-i18n="how.eyebrow">Integrated workflow</p>
+        <h2 data-i18n="how.h2">Geological model → dynamic simulation → integrated interpretation</h2>
+        <p class="section-sub" data-i18n="how.sub">
+          Teracores brings geological modeling, dynamic simulation, calibration, and
+          interpretation into one consistent visual workflow — reducing unnecessary
+          handoffs between tools.
+        </p>
+      </div>
+      <ol class="steps">
+        <li class="step reveal">
+          <span class="step__num">1</span>
+          <h3 data-i18n="step1.h3">Import &amp; build</h3>
+          <p data-i18n="step1.p">
+            Import your geological model and build the simulation-ready reservoir grid,
+            including mesh, rock types, boundaries, sources, and wells.
+          </p>
+        </li>
+        <li class="step reveal">
+          <span class="step__num">2</span>
+          <h3 data-i18n="step2.h3">Prepare &amp; simulate</h3>
+          <p data-i18n="step2.p">
+            Prepare simulation inputs visually and launch runs on Waiwera or TOUGH2,
+            including the coupled wellbore model, while monitoring simulation progress.
+          </p>
+        </li>
+        <li class="step reveal">
+          <span class="step__num">3</span>
+          <h3 data-i18n="step3.h3">Calibrate &amp; interpret</h3>
+          <p data-i18n="step3.p">
+            Visualize simulation results, compare them with field data, and export grids
+            and results back to the geological workflow to support the next engineering decision.
+          </p>
+        </li>
+      </ol>
+      <p class="label" style="text-align:center;margin-top:2.4rem;color:var(--on-dark-faint);" data-i18n="how.label">
+        Geological Model → Dynamic Simulation → Interpretation &nbsp;·&nbsp; Petrel · Leapfrog · Waiwera · TOUGH2 · PyTOUGH
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ COUPLED WELLBORE MODEL ============ -->
+  <section class="coupled" id="wellbore">
+    <div class="container coupled__inner">
+      <div class="coupled__copy reveal">
+        <p class="eyebrow" data-i18n="well.eyebrow">Coupled wellbore model</p>
+        <h2 data-i18n="well.h2">The reservoir and the well, solved together</h2>
+        <p class="coupled__lede" data-i18n="well.body">
+          A geothermal well and the reservoir it taps are one system: feed-zone pressure
+          drives the flow, the flow sets how pressure and temperature fall up the wellbore,
+          and that drawdown feeds straight back into the reservoir. Teracores models both at
+          once — an integrated wellbore model iterates with the reservoir simulation until
+          the wellhead conditions and the reservoir response agree.
+        </p>
+        <ul class="coupled__points">
+          <li data-i18n="well.li1">Feed zones exchange mass and heat with the reservoir grid at depth.</li>
+          <li data-i18n="well.li2">Pressure drop and flashing are tracked the full length of the wellbore.</li>
+          <li data-i18n="well.li3">Both models iterate to one physically consistent wellhead solution.</li>
+        </ul>
+      </div>
+
+      <div class="coupled__visual reveal">
+        <div class="viewer">
+          <div class="viewer__bar">
+            <span class="viewer__dot"></span><span class="viewer__dot"></span><span class="viewer__dot"></span>
+            <span class="viewer__title">Wellbore ⇄ Reservoir — coupled solve</span>
+            <span class="viewer__chip">iterating</span>
+          </div>
+          <div class="coupled__stage">
+            <svg class="cw" viewBox="0 0 460 450" role="img" aria-labelledby="cwTitle cwDesc">
+              <title id="cwTitle">Coupled wellbore–reservoir model</title>
+              <desc id="cwDesc">A geothermal well drawing fluid upward from a hot reservoir. Feed zones exchange mass and heat with the reservoir grid, the fluid flashes to two-phase as it rises, and the wellbore and reservoir models iterate to a consistent wellhead solution.</desc>
+              <defs>
+                <linearGradient id="cwFluid" x1="0" y1="1" x2="0" y2="0">
+                  <stop offset="0" stop-color="#ffd27a"/>
+                  <stop offset="0.35" stop-color="#ff7a2f"/>
+                  <stop offset="0.72" stop-color="#ef3b2d"/>
+                  <stop offset="1" stop-color="#ff5a45"/>
+                </linearGradient>
+                <radialGradient id="cwRes" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0" stop-color="#ffe08a" stop-opacity="0.95"/>
+                  <stop offset="0.4" stop-color="#ef3b2d" stop-opacity="0.6"/>
+                  <stop offset="1" stop-color="#8c1c1e" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="cwRock" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#0f2740"/>
+                  <stop offset="1" stop-color="#05101d"/>
+                </linearGradient>
+                <clipPath id="cwWell"><rect x="214" y="70" width="22" height="285" rx="4"/></clipPath>
+              </defs>
+
+              <!-- subsurface + strata -->
+              <rect x="0" y="70" width="460" height="380" fill="url(#cwRock)"/>
+              <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
+                <line x1="0" y1="132" x2="460" y2="136"/>
+                <line x1="0" y1="196" x2="460" y2="202"/>
+                <line x1="0" y1="262" x2="460" y2="256"/>
+                <line x1="0" y1="316" x2="460" y2="322"/>
+              </g>
+              <rect x="0" y="0" width="460" height="70" fill="rgba(255,255,255,0.02)"/>
+              <line x1="0" y1="70" x2="460" y2="70" stroke="rgba(234,241,248,0.18)" stroke-width="1.5"/>
+
+              <!-- reservoir -->
+              <ellipse class="cw-glow" cx="225" cy="388" rx="205" ry="72" fill="url(#cwRes)"/>
+              <text x="316" y="392" class="cw-lbl cw-lbl--hot">RESERVOIR</text>
+
+              <!-- casing -->
+              <g class="cw-casing" stroke="rgba(234,241,248,0.5)" stroke-width="2">
+                <line x1="214" y1="70" x2="214" y2="352"/>
+                <line x1="236" y1="70" x2="236" y2="352"/>
+              </g>
+
+              <!-- fluid column -->
+              <g clip-path="url(#cwWell)">
+                <rect x="214" y="70" width="22" height="285" fill="url(#cwFluid)" opacity="0.92"/>
+                <g class="cw-flow" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-dasharray="9 17">
+                  <line x1="220" y1="70" x2="220" y2="355"/>
+                  <line x1="225" y1="70" x2="225" y2="355"/>
+                  <line x1="231" y1="70" x2="231" y2="355"/>
+                </g>
+                <g fill="rgba(255,255,255,0.85)">
+                  <circle class="cw-b" cx="221" cy="182" r="2.2"/>
+                  <circle class="cw-b" cx="229" cy="182" r="1.7" style="animation-delay:-1.3s"/>
+                  <circle class="cw-b" cx="225" cy="182" r="2.7" style="animation-delay:-2.2s"/>
+                  <circle class="cw-b" cx="219" cy="182" r="1.5" style="animation-delay:-0.7s"/>
+                  <circle class="cw-b" cx="231" cy="182" r="2.0" style="animation-delay:-1.8s"/>
+                </g>
+              </g>
+
+              <!-- wellhead -->
+              <g class="cw-head" stroke="rgba(234,241,248,0.45)">
+                <rect x="210" y="52" width="30" height="20" rx="3" fill="#17324f"/>
+                <rect x="221" y="44" width="8" height="12" rx="2" fill="#17324f"/>
+                <line x1="200" y1="71" x2="250" y2="71" stroke="rgba(234,241,248,0.6)" stroke-width="3"/>
+              </g>
+
+              <!-- telemetry -->
+              <g class="cw-tele" transform="translate(282,40)">
+                <rect width="166" height="48" rx="9" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)"/>
+                <circle cx="15" cy="16" r="3.2" fill="#28c840" class="cw-live"/>
+                <text x="27" y="20" class="cw-tele__lbl">WELLHEAD</text>
+                <text x="13" y="38" class="cw-tele__val">9.2 bar · 182 °C · 46 t/h</text>
+              </g>
+
+              <!-- wellbore label -->
+              <path d="M236 108 L256 108" stroke="rgba(234,241,248,0.3)" stroke-width="1"/>
+              <text x="260" y="112" class="cw-lbl">Wellbore</text>
+
+              <!-- flash point -->
+              <line x1="196" y1="186" x2="300" y2="186" class="cw-flash" stroke="#ffe08a" stroke-width="1" stroke-dasharray="4 4"/>
+              <circle cx="225" cy="186" r="3" fill="#ffe08a"/>
+              <text x="304" y="190" class="cw-lbl cw-lbl--warm">Flash point</text>
+
+              <!-- feed zones -->
+              <g class="cw-feed" stroke="#ff7a2f" fill="#ff7a2f">
+                <g class="cw-feed__arrow cw-feed__arrow--l">
+                  <path d="M150 320 L206 320" stroke-width="2"/>
+                  <path d="M199 315 L208 320 L199 325 Z" stroke="none"/>
+                </g>
+                <g class="cw-feed__arrow cw-feed__arrow--r" style="animation-delay:-1.1s">
+                  <path d="M300 338 L244 338" stroke-width="2"/>
+                  <path d="M251 333 L242 338 L251 343 Z" stroke="none"/>
+                </g>
+              </g>
+              <text x="304" y="342" class="cw-lbl cw-lbl--warm">Feed zone</text>
+
+              <!-- coupling iteration badge -->
+              <g class="cw-couple" transform="translate(74,252)">
+                <circle r="29" fill="rgba(239,59,45,0.12)" stroke="rgba(255,90,69,0.5)"/>
+                <g class="cw-couple__spin" fill="none" stroke="#ff5a45" stroke-width="2.6" stroke-linecap="round">
+                  <path d="M-15 -6 A16 16 0 0 1 13 -8"/>
+                  <path d="M15 6 A16 16 0 0 1 -13 8"/>
+                  <path d="M13 -14 L17 -7 L9 -7 Z" fill="#ff5a45" stroke="none"/>
+                  <path d="M-13 14 L-17 7 L-9 7 Z" fill="#ff5a45" stroke="none"/>
+                </g>
+                <text x="0" y="48" class="cw-couple__cap">COUPLED</text>
+                <text x="0" y="59" class="cw-couple__cap">ITERATION</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DEMO VIDEO ============ -->
+  <section class="video" id="demo">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow" data-i18n="video.eyebrow">The model</p>
+        <h2 data-i18n="video.h2">Every fault, layer and cell — in 3D</h2>
+        <p class="section-sub" data-i18n="video.sub">
+          A real faulted geothermal reservoir, built and explored in Teracores.
+        </p>
+      </div>
+      <div class="video__frame reveal">
+        <video class="video__el" controls preload="none" playsinline poster="assets/img/demo_poster.jpg">
+          <source src="assets/video/fault_model_web.mp4" type="video/mp4" />
+          Your browser can't play embedded video. <a href="assets/video/fault_model_web.mp4">Download the clip.</a>
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LIFECYCLE ============ -->
+  <section class="lifecycle" id="lifecycle">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow" data-i18n="life.eyebrow">Full project lifecycle</p>
+        <h2 data-i18n="life.h2">One model, every stage of the field</h2>
+        <p class="section-sub" data-i18n="life.sub">
+          Teracores organizes each model into phases, so the same reservoir carries you
+          from first look to long-term forecast.
+        </p>
+      </div>
+      <div class="phases">
+        <div class="phase reveal">
+          <span class="phase__tag" data-i18n="phase1.tag">Phase 1</span>
+          <h3 data-i18n="phase1.h3">Natural State</h3>
+          <p data-i18n="phase1.p">Characterize the reservoir before development — temperature, pressure and geology as they are today.</p>
+        </div>
+        <div class="phase__arrow" aria-hidden="true">→</div>
+        <div class="phase reveal">
+          <span class="phase__tag" data-i18n="phase2.tag">Phase 2</span>
+          <h3 data-i18n="phase2.h3">Production</h3>
+          <p data-i18n="phase2.p">Match production history against real well data to make the model trustworthy.</p>
+        </div>
+        <div class="phase__arrow" aria-hidden="true">→</div>
+        <div class="phase reveal">
+          <span class="phase__tag" data-i18n="phase3.tag">Phase 3</span>
+          <h3 data-i18n="phase3.h3">Future Scenarios</h3>
+          <p data-i18n="phase3.p">Forecast decades ahead: compare drilling plans, injection strategies and field life side by side.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RECOGNITION ============ -->
+  <section class="proof" id="proof">
+    <div class="container proof__inner">
+      <p class="eyebrow reveal" data-i18n="proof.eyebrow">Recognition &amp; Industry Validation</p>
+      <h2 class="reveal" data-i18n="proof.h2">Recognized by the geothermal academic and professional community</h2>
+
+      <div class="award reveal">
+        <span class="award__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M7 3h10v2h3v3a4 4 0 0 1-4 4h-.3A6 6 0 0 1 13 15.9V18h3v2H8v-2h3v-2.1A6 6 0 0 1 7.3 12H7a4 4 0 0 1-4-4V5h4V3Zm0 4H5v1a2 2 0 0 0 2 2V7Zm10 0v3a2 2 0 0 0 2-2V7h-2Z"/></svg>
+        </span>
+        <span class="award__text">
+          <span class="award__title" data-i18n="award.title">Best Presenter · Innovation Category</span>
+          <span class="award__meta" data-i18n="award.meta">15th ITB International Geothermal Workshop (IIGW) 2026 · Academic &amp; Industry Forum</span>
+        </span>
+      </div>
+
+      <blockquote class="proof__pub reveal">
+        <p class="proof__pub-title">&ldquo;TERACORES: An Integrated Geothermal Numerical Simulation Platform for Pre- and Post-Processing of Reservoir–Wellbore Models&rdquo;</p>
+        <p class="proof__pub-by">Mesias Canilandi · Muhamad Bayu Saputra · Eric Firanda</p>
+      </blockquote>
+
+      <p class="proof__org reveal" data-i18n="proof.org">Developed at <strong>PT Pertamina Geothermal Energy (PGE)</strong> and presented at a leading forum connecting geothermal academics and practitioners.</p>
+
+      <div class="proof__photos">
+        <figure class="proof__photo reveal">
+          <img src="assets/img/teracores_award_1.jpg" loading="lazy"
+            alt="The Teracores team receiving the award on stage at the 15th ITB International Geothermal Workshop 2026." />
+          <figcaption data-i18n="proof.cap1">Receiving the award on stage — 15th ITB International Geothermal Workshop, 2026.</figcaption>
+        </figure>
+        <figure class="proof__photo reveal">
+          <img src="assets/img/teracores_award_2.jpg" loading="lazy"
+            alt="Conference screen announcing the Innovation Session Best Presenter: Mesias Piere Canilandi, PT Pertamina Geothermal Energy." />
+          <figcaption data-i18n="proof.cap2">Innovation Session Best Presenter — Mesias Piere Canilandi, PT Pertamina Geothermal Energy.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="voices" id="voices">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow" data-i18n="voices.eyebrow">Testimonials</p>
+        <h2 data-i18n="voices.h2">Voices from PGE leadership</h2>
+        <p class="section-sub" data-i18n="voices.sub">
+          Senior exploration and exploitation leaders at PT Pertamina Geothermal
+          Energy on what Teracores brings to everyday reservoir work.
+        </p>
+      </div>
+
+      <div class="voices__grid">
+        <!-- Quote testimonial -->
+        <figure class="tcard reveal">
+          <svg class="tcard__mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6C6.5 7.5 5 10 5 13v5h6v-6H8.2c.1-1.8 1-3.1 2.8-4L9.5 6Zm9 0c-3 1.5-4.5 4-4.5 7v5h6v-6h-2.8c.1-1.8 1-3.1 2.8-4L18.5 6Z"/></svg>
+          <blockquote class="tcard__quote">
+            <p class="tcard__id" lang="id">
+              &ldquo;Aplikasi TERACORES sangat bagus dan bermanfaat, memiliki fleksibilitas
+              tinggi dengan mengakomodir berbagai jenis engine simulasi reservoir, menu
+              interface yang sangat lengkap, serta mengintegrasikan numerical simulation
+              dengan wellbore modeling sehingga pekerjaan simulasi menjadi lebih cepat
+              dan mudah.&rdquo;
+            </p>
+            <p class="tcard__en">
+              <span class="tcard__enlabel">EN</span>&ldquo;TERACORES is an excellent and
+              genuinely useful application. It is highly flexible, accommodating a range of
+              reservoir simulation engines, with a very complete interface — and it
+              integrates numerical simulation with wellbore modeling, so simulation work
+              becomes faster and easier.&rdquo;
+            </p>
+          </blockquote>
+          <figcaption class="tcard__person">
+            <img class="tcard__avatar" src="assets/img/testimonial_pudyo.jpg" alt="Pudyo Hastuti" loading="lazy" />
+            <span class="tcard__who">
+              <span class="tcard__name">Pudyo Hastuti</span>
+              <span class="tcard__role" data-i18n="voices.role1">VP Exploitation · PGE</span>
+            </span>
+          </figcaption>
+        </figure>
+
+        <!-- Video testimonial -->
+        <figure class="tcard tcard--video reveal">
+          <div class="tcard__videowrap">
+            <video class="tcard__video" controls preload="none" playsinline
+              poster="assets/img/testimonial_edwil_poster.jpg"
+              aria-label="Video testimonial from Edwil Suzandi, Director of Exploration and Development at PT Pertamina Geothermal Energy.">
+              <source src="assets/video/testimonial_edwil_web.mp4" type="video/mp4" />
+              Your browser can't play embedded video.
+              <a href="assets/video/testimonial_edwil_web.mp4">Download the clip.</a>
+            </video>
+          </div>
+          <figcaption class="tcard__person">
+            <img class="tcard__avatar" src="assets/img/testimonial_edwil.jpg" alt="Edwil Suzandi" loading="lazy" />
+            <span class="tcard__who">
+              <span class="tcard__name">Edwil Suzandi</span>
+              <span class="tcard__role" data-i18n="voices.role2">Director of Exploration &amp; Development · PGE</span>
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="cta" id="contact">
+    <div class="container cta__inner reveal">
+      <h2 data-i18n="cta.h2">Ready to explore your geothermal workflow?</h2>
+      <p data-i18n="cta.p">
+        Tell us about your modeling challenge and explore how Teracores can fit into
+        your geothermal simulation workflow.
+      </p>
+      <div class="cta__actions">
+        <a class="btn btn--primary btn--lg" href="mailto:mesias.canilandi@pertamina.com?subject=Teracores%20enquiry" data-i18n="cta.btn">Get in touch</a>
+      </div>
+      <p class="cta__note" data-i18n="cta.note">Developed and supported by the Teracores team at PT Pertamina Geothermal Energy.</p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img class="footer__logo" src="assets/img/teracores_logogram.png" alt="" aria-hidden="true" />
+        <span>Teracores</span>
+      </div>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#features" data-i18n="nav.features">Features</a>
+        <a href="#workflow" data-i18n="nav.workflow">Workflow</a>
+        <a href="#screens" data-i18n="nav.gallery">Gallery</a>
+        <a href="#lifecycle" data-i18n="nav.lifecycle">Lifecycle</a>
+      </nav>
+      <p class="footer__copy">© <span id="year"></span> Teracores · <span data-i18n="footer.copy">An integrated geothermal numerical simulation platform for reservoir–wellbore models.</span></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
